@@ -1,5 +1,6 @@
-^\.(?!perltidyrc|perlcriticrc)
+^\.
 \.bak$
+\.tgz
 \.tar\.gz$
 \.tar$
 ^Makefile$
@@ -7,8 +8,6 @@
 ^blib
 ^pm_to_blib
 ^README.md
-^.travis.yml
-^.gitignore
 ^nytprof
 ^cover_db
 ^_Deparsed_XSubs\.pm

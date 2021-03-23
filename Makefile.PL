@@ -60,25 +60,23 @@ WriteMakefile(
             },
         },
     },
-    PREREQ_PM => {
-        qw(
-            Mojolicious                8.06
-            Path::Tiny                 0.100
-            YAML::Any                  0
-            Log::Log4perl              0
-            Try::Tiny                  0
-            Class::Method::Modifiers   0
-            Text::CSV                  1.96
-            DBI                        0
-            DBD::SQLite                1.52
-            Spreadsheet::Read          0.80
-            Spreadsheet::ParseExcel    0.34
-            Spreadsheet::ParseXLSX     0.24
-            Spreadsheet::ReadSXC       0.20
-            Excel::Writer::XLSX        1.00
-            ),
-    },
+    PREREQ_PM => { qw(
+        Mojolicious                8.06
+        Path::Tiny                 0.100
+        YAML::Any                  0
+        Log::Log4perl              0
+        Try::Tiny                  0
+        Class::Method::Modifiers   0
+        Text::CSV                  1.96
+        DBI                        0
+        Spreadsheet::Read          0.80
+        Spreadsheet::ParseExcel    0.34
+        Spreadsheet::ParseXLSX     0.24
+        Spreadsheet::ReadSXC       0.20
+        Excel::Writer::XLSX        1.00
+    ) },
     TEST_REQUIRES => { qw(
+        DBD::SQLite                1.52
         Test::Exception            0.43
     ) },
     EXE_FILES => ['bin/spreadcomp'],

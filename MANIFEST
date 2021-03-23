@@ -1,5 +1,3 @@
-.perlcriticrc
-.perltidyrc
 bin/spreadcomp
 Changes
 lib/Spreadsheet/Compare.pm
