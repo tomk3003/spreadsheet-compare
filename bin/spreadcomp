@@ -18,7 +18,17 @@ GetOptions( \my %opt, qw(config=s debug=s help jobs=i quiet man summary) )
     -verbose  => 0,
     );
 
+my $msg = <<'END';
+spreadcomp:
+
+    Compare spreadsheets or databases and create a report for the detected
+    differences. This is the command line frontend script for the Perl
+    module Spreadsheet::Compare.
+    See https://metacpan.org/pod/Spreadsheet::Compare for more information.
+END
+
 pod2usage(
+    -msg      => $msg,
     -exitcode => 0,
     -verbose  => 0,
 ) if $opt{help};
@@ -73,7 +83,7 @@ exit $sc->exit_code;
 
 =head1 SYNOPSIS
 
-    spreadcomp -c <YAML-config-file> [-d] [-j] [-h] [-m]
+    spreadcomp -c <YAML-config-file> [-d] [-j] [-q] [-h] [-m]
 
     Options:
         -c, --config
