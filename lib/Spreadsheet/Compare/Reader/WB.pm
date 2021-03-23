@@ -22,11 +22,8 @@ has sheetname => undef, ro => 1;
 has wb        => sub ($self) {
     my $fn = $self->filename;
     INFO "opening workbook >>$fn<<";
-    my $wb = try {
-        Spreadsheet::Read->new( $fn->stringify, $self->sr_options->%* );
-    } catch {
-        LOGDIE "could not create Spreadsheet::Read instance, $_";
-    };
+    my $wb = Spreadsheet::Read->new( $fn->stringify, $self->sr_options->%* );
+    LOGDIE "could not create Spreadsheet::Read instance, $@";
     INFO "created object: ", $wb;
     return $wb;
 }, ro => 1;
