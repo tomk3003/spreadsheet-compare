@@ -79,7 +79,7 @@ WriteMakefile(
         DBD::SQLite                1.52
         Test::Exception            0.43
         Spreadsheet::ParseXLSX     0.24
-        Spreadsheet::ReadSXC       0.20
+        Spreadsheet::ParseODS      0.20
     ) },
     EXE_FILES => ['bin/spreadcomp'],
     test      => { TESTS => 't/*.t' }
