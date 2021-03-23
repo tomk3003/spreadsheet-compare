@@ -1,0 +1,30 @@
+name: windows
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+jobs:
+  perl:
+    runs-on: windows-latest
+    steps:
+      - name: Set git to use LF
+        run:  |
+              git config --global core.autocrlf false
+              git config --global core.eol lf
+      - uses: actions/checkout@v2
+      - name: perl -V
+        run:  perl -V
+      - name:  set path
+        shell: bash
+        run:   echo 'C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin' >> $GITHUB_PATH
+      - name: Install Dependencies
+        run:  cpanm -f -n --no-interactive --installdeps --skip-satisfied .
+      - name: Run Tests
+        run:  prove -Ilib -m -v --jobs 4
+      - name: Install Mojo::IOLoop::Thread
+        run:  cpanm -f -n --no-interactive Mojo::IOLoop::Thread
+      - name: Run Multithreaded Test
+        run:  prove -Ilib -m -v t/12_complex_csv.t
