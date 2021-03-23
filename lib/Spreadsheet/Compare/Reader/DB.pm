@@ -98,7 +98,7 @@ Spreadsheet::Compare::Reader::DB - Database Adapter for Spreadsheet::Compare
 
 =head1 DESCRIPTION
 
-This module provides an init/fetch interface for records returned from a database query
+This module provides a fetch interface for records returned from a database query
 
 =head1 EXAMPLE
 

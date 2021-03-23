@@ -81,6 +81,6 @@ WriteMakefile(
         Spreadsheet::ParseXLSX     0.24
         Spreadsheet::ParseODS      0.20
     ) },
-    EXE_FILES => ['bin/spreadcomp'],
+    EXE_FILES => ['script/spreadcomp'],
     test      => { TESTS => 't/*.t' }
 );
