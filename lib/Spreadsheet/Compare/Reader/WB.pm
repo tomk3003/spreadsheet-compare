@@ -23,8 +23,7 @@ has wb        => sub ($self) {
     my $fn = $self->filename;
     INFO "opening workbook >>$fn<<";
     my $wb = Spreadsheet::Read->new( $fn->stringify, $self->sr_options->%* );
-    LOGDIE "could not create Spreadsheet::Read instance, $@";
-    INFO "created object: ", $wb;
+    LOGDIE "could not create Spreadsheet::Read instance, $@" unless $wb;
     return $wb;
 }, ro => 1;
 #>>>
@@ -44,9 +43,7 @@ sub setup ($self) {
     my $pfull = $self->{__ro__filename} = $fn->is_absolute ? $fn : $proot->child($fn);
 
     INFO "getting data for sheet >>$sn<<";
-    my $wb = $self->wb;
-    INFO "using object: ", $wb;
-    $self->{__ro__sheet} = $wb->sheet($sn);
+    $self->{__ro__sheet} = $self->wb->sheet($sn);
 
     LOGDIE "worksheet >>$sn<< not found in >>$pfull<<" unless $self->sheet;
 

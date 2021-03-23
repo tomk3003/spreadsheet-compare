@@ -25,11 +25,9 @@ _Deparsed_XSubs.pm
 .idea/
 hugo/public
 scratch/*
-*.xlsx
-*.html
 .~*
 nytprof/*
 /MANIFEST.bak
 *.tar
 *.tar.gz
-
+*.tgz
