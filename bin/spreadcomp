@@ -8,6 +8,9 @@ use Spreadsheet::Compare;
 use Getopt::Long;
 use Pod::Usage;
 use Pod::Find qw(pod_where);
+use Capture::Tiny qw(capture_merged);
+use Config;
+use Path::Tiny qw(tempfile);
 
 GetOptions( \my %opt, qw(config=s debug=s help jobs=i quiet man summary) )
     or pod2usage(
@@ -20,11 +23,36 @@ pod2usage(
     -verbose  => 0,
 ) if $opt{help};
 
-pod2usage(
-    -exitcode => 0,
-    -verbose  => 1,
-    -input    => pod_where( { -inc => 1 }, 'Spreadsheet::Compare' )
-) if $opt{man};
+if ( $opt{man} ) {
+    my @modlist = qw(
+        Spreadsheet::Compare
+        Spreadsheet::Compare::Reader
+        Spreadsheet::Compare::Reader::CSV
+        Spreadsheet::Compare::Reader::DB
+        Spreadsheet::Compare::Reader::FIX
+        Spreadsheet::Compare::Reader::WB
+        Spreadsheet::Compare::Single
+        Spreadsheet::Compare::Reporter
+        Spreadsheet::Compare::Reporter::HTML
+        Spreadsheet::Compare::Reporter::XLSX
+    );
+    my($out) = capture_merged {
+        for my $mod (@modlist) {
+            pod2usage(
+                -exitcode  => 'NOEXIT',
+                -verbose   => 99,
+                -input     => pod_where( { -inc => 1 }, $mod ),
+                -sections  => 'NAME|ATTRIBUTES',
+                -noplerdoc => 1,
+            );
+        }
+    };
+    my $pager = $ENV{PAGER} || $Config{pager} || 'more';
+    my $tmp   = tempfile("spreadcomp-XXXX");
+    $tmp->spew($out);
+    system("$pager $tmp");
+    exit;
+}
 
 pod2usage(
     -exitcode => 2,

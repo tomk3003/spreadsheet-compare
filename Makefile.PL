@@ -74,6 +74,8 @@ WriteMakefile(
         Spreadsheet::ParseXLSX     0.24
         Spreadsheet::ReadSXC       0.20
         Excel::Writer::XLSX        1.00
+        Pod::Find                  0
+        Pod::Usage                 0
     ) },
     TEST_REQUIRES => { qw(
         DBD::SQLite                1.52
