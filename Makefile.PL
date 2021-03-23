@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use ExtUtils::MakeMaker 6.64;
 
-$| = 1;
+local $| = 1;
 
 my %optional = (
     'Mojo::IOLoop::Thread' => {
@@ -26,7 +26,7 @@ for my $mod ( keys %optional ) {
     next if $om->{skip};
 
     print "Checking optional module $mod $om->{version}: ";
-    my $ok = eval "require $mod; $mod->VERSION >= $om->{version};";
+    my $ok = eval "require $mod; $mod->VERSION >= $om->{version};"; ## no critic (ProhibitStringyEval)
     if ( $@ || !$ok ) {
         sleep 1;
         print "NOT FOUND!\n";
