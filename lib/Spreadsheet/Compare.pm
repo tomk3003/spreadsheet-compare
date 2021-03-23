@@ -15,21 +15,17 @@ my( $trace, $debug );
 
 my @counter_names = Spreadsheet::Compare::Single->counter_names;
 
-has log_level => sub { $ENV{SPREADSHEET_COMPARE_DEBUG} };
-
-has [qw/_cfo config quiet stdout/];
-
+#<<<
+has _cfo      => undef;
+has config    => undef;
+has errors    => sub { [] }, ro => 1;
 has exit_code => 0;
-
-has jobs => 1;
-
-has
-    result => sub { {} },
-    ro     => 1;
-
-has
-    errors => sub { [] },
-    ro     => 1;
+has jobs      => 1;
+has log_level => sub { $ENV{SPREADSHEET_COMPARE_DEBUG} };
+has quiet     => undef;
+has result    => sub { {} }, ro => 1;
+has stdout    => undef;
+#>>>
 
 # emitted by Spreadsheet::Compare::Single
 has _reporter_events => sub { [ qw(

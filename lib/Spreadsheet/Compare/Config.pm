@@ -12,7 +12,7 @@ my %sources;
 my %protected;
 
 #<<<
-has 'from';
+has from    => undef;
 has plan    => sub { [] };
 has globals => sub { {} }, ro => 1;
 #>>>
