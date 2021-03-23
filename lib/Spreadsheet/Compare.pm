@@ -770,7 +770,7 @@ See L<Spreadsheet::Compare::Reader/chunk> for examples.
 
 While testing the configuration of a comparison (for example finding the correct
 identity, the columns you want to ignore or fine tune the limits), always comparing
-whole data sets can be tediuos. For sorted data this can be achieved with the option
+whole data sets can be tedious. For sorted data this can be achieved with the option
 L<Spreadsheet::Compare::Single/fetch_limit> limiting the number of fetches.
 
 For unsorted data it is best to simply use selected subsets of the data.
