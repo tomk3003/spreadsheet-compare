@@ -28,5 +28,5 @@ jobs:
         run: cpanm -n --no-interactive --installdeps --skip-satisfied .
       - name: Run tests
         env:
-          SPREADSHEET_COMPARE_DEBUG: 1
+          SPREADSHEET_COMPARE_DEBUG: INFO
         run: prove -Ilib -m -v --jobs 4
