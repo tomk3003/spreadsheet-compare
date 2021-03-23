@@ -19,10 +19,15 @@ has filename  => undef, ro => 1;
 has last_row  => undef, ro => 1;
 has sheet     => undef, ro => 1;
 has sheetname => undef, ro => 1;
-has wb        => sub {
-    my $fn = $_[0]->filename;
+has wb        => sub ($self) {
+    my $fn = $self->filename;
     INFO "opening workbook >>$fn<<";
-    Spreadsheet::Read->new( $fn->stringify, $_[0]->sr_options->%* );
+    my $wb = try {
+        Spreadsheet::Read->new( $fn->stringify, $self->sr_options->%* );
+    } catch {
+        LOGDIE "could not create Spreadsheet::Read instance, $_";
+    };
+    return $wb;
 }, ro => 1;
 #>>>
 

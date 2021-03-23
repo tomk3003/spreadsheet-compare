@@ -12,10 +12,10 @@ jobs:
     strategy:
       matrix:
         perl-version:
-          - '5.24'
-          - '5.26'
-          - '5.28'
-          - '5.30'
+#          - '5.24'
+#          - '5.26'
+#          - '5.28'
+#          - '5.30'
           - '5.32'
     container:
       image: perl:${{ matrix.perl-version }}
@@ -27,4 +27,6 @@ jobs:
         #run: cpanm -n -v --no-interactive --installdeps --skip-satisfied .
         run: cpanm -n --no-interactive --installdeps --skip-satisfied .
       - name: Run tests
+        env:
+          SPREADSHEET_COMPARE_DEBUG: 1
         run: prove -Ilib -m -v --jobs 4

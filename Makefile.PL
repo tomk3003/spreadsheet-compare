@@ -70,9 +70,6 @@ WriteMakefile(
         Text::CSV                  1.96
         DBI                        0
         Spreadsheet::Read          0.80
-        Spreadsheet::ParseExcel    0.34
-        Spreadsheet::ParseXLSX     0.24
-        Spreadsheet::ReadSXC       0.20
         Excel::Writer::XLSX        1.00
         Pod::Find                  0
         Pod::Usage                 0
@@ -81,6 +78,8 @@ WriteMakefile(
     TEST_REQUIRES => { qw(
         DBD::SQLite                1.52
         Test::Exception            0.43
+        Spreadsheet::ParseXLSX     0.24
+        Spreadsheet::ReadSXC       0.20
     ) },
     EXE_FILES => ['bin/spreadcomp'],
     test      => { TESTS => 't/*.t' }
