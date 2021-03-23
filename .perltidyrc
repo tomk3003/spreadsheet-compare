@@ -1,0 +1,20 @@
+-st                     # output to stdout
+-se                     # errors to stderr
+-w                      # warnings as errors
+-ole=unix               # LF as line ending
+-l=120                  # line length
+-mbl=2                  # max consecutive blank lines
+-i=4                    # indent
+-ci=4                   # continuation indent
+-sot                    # stack opening tokens
+-wn                     # weld nested containers
+-isbc                   # indent spaced block comments
+-bar                    # opening brace always on the right
+-otr                    # no break between a comma and an opening token
+-cab=0                  # break at all commas after '=>'
+-nolq                   # no outdent for long quotes
+-nola                   # no outdent for labels
+-nbbc                   # no blank line before comment
+-nsfs                   # no extra space for ';'
+-bom                    # keep indent for chained functions
+-nsak="my our local"    # no space after my, local and our

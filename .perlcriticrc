@@ -1,0 +1,36 @@
+severity = harsh
+exclude  = RequireExtendedFormatting ProhibitConstantPragma
+verbose  = %f: [%p] %m at line %l, column %c.  %e.  (Severity: %s)\n
+
+theme    = core
+
+program-extensions = .pl .t
+
+[ErrorHandling::RequireCarping]
+    allow_in_main_unless_in_subroutine = 1
+[InputOutput::RequireBriefOpen]
+    lines = 25
+[NamingConventions::ProhibitAmbiguousNames]
+    forbid = last set no abstract contract second close
+[Variables::ProhibitPackageVars]
+    add_packages = DBI Net::SFTP::Foreign
+[ControlStructures::ProhibitCascadingIfElse]
+    max_elsif = 5
+[Subroutines::ProhibitUnusedPrivateSubroutines]
+    private_name_regex = ^_(?!\w*test)\w*$
+[Subroutines::ProhibitSubroutinePrototypes]
+    severity = 1
+[Variables::RequireLocalizedPunctuationVars]
+allow = @ARGV $ARGV %ENV %SIG
+[Subroutines::ProhibitManyArgs]
+max_arguments = 6
+[Modules::RequireExplicitPackage]
+allow_import_of = utf8
+[Subroutines::RequireArgUnpacking]
+short_subroutine_statements = 5
+[TestingAndDebugging::RequireUseStrict]
+equivalent_modules = Spreadsheet::Compare::Common
+[TestingAndDebugging::RequireUseWarnings]
+equivalent_modules = Spreadsheet::Compare::Common
+[RegularExpressions::ProhibitComplexRegexes]
+max_characters = 100
