@@ -76,6 +76,7 @@ WriteMakefile(
         Excel::Writer::XLSX        1.00
         Pod::Find                  0
         Pod::Usage                 0
+        Capture::Tiny              0
     ) },
     TEST_REQUIRES => { qw(
         DBD::SQLite                1.52
