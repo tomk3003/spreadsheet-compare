@@ -124,7 +124,8 @@ Spreadsheet::Compare::Reader::WB - Workbook Adapter for Spreadsheet::Compare
 
 This module provides a fetch interface for various spreadsheet workbook formats
 (Excel/OpenOffice/LibreOffice). It uses L<Spreadsheet::Read> for reading the
-spreadsheet data.
+spreadsheet data. L<Spreadsheet::Read> will not be installed as a hard dependency
+for L<Spreadsheet::Compare>, so it has to be manually installed.
 
 =head1 ATTRIBUTES
 

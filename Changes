@@ -1,5 +1,6 @@
 0.11 2021-03-24
-  - documentation updates, no functional changes
+  - reduce hard dependencies
+  - documentation updates
 
 0.10 2021-03-23
   - first public release

@@ -24,9 +24,9 @@ jobs:
       - name: perl -V
         run: perl -V
       - name: install dependencies
-        #run: cpanm -n -v --no-interactive --installdeps --skip-satisfied .
         run: cpanm -n --no-interactive --installdeps --skip-satisfied .
       - name: Run tests
         env:
           SPREADSHEET_COMPARE_DEBUG: INFO
+          SPREADSHEET_COMPARE_TEST_ALL: 1
         run: prove -Ilib -m -v --jobs 4
