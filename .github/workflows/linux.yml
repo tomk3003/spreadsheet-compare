@@ -24,6 +24,8 @@ jobs:
       - name: perl -V
         run: perl -V
       - name: install dependencies
+        env:
+          SPREADSHEET_COMPARE_TEST_ALL: 1
         run: cpanm -n --no-interactive --installdeps --skip-satisfied .
       - name: Run tests
         env:
