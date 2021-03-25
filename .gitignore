@@ -31,3 +31,4 @@ nytprof/*
 *.tar
 *.tar.gz
 *.tgz
+/example/

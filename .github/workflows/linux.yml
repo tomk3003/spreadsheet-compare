@@ -23,11 +23,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: perl -V
         run: perl -V
-      - name: install dependencies
+      - name: install minimal dependencies
+        run: cpanm -n --no-interactive --installdeps --skip-satisfied .
+      - name: run minimal tests
+        env:
+          SPREADSHEET_COMPARE_DEBUG: INFO
+        run: prove -Ilib -m -v --jobs 4
+      - name: install all dependencies
         env:
           SPREADSHEET_COMPARE_TEST_ALL: 1
         run: cpanm -n --no-interactive --installdeps --skip-satisfied .
-      - name: Run tests
+      - name: run all tests
         env:
           SPREADSHEET_COMPARE_DEBUG: INFO
           SPREADSHEET_COMPARE_TEST_ALL: 1
