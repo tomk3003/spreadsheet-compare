@@ -1,4 +1,4 @@
-package Spreadsheet::Compare 0.11;
+package Spreadsheet::Compare 0.12;
 
 # TODO: (issue) allow list for reporters
 

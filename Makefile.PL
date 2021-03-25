@@ -67,7 +67,9 @@ WriteMakefile(
         prereqs        => { runtime => { requires => { perl => '5.024' } } },
         resources      => {
             license    => 'http://www.opensource.org/licenses/artistic-license-2.0',
-            bugtracker => 'https://github.com/tomk3003/spreadsheet-compare/issues',
+            bugtracker => {
+                web => 'https://github.com/tomk3003/spreadsheet-compare/issues'
+            },
             repository => {
                 type => 'git',
                 url  => 'https://github.com/tomk3003/spreadsheet-compare.git',
