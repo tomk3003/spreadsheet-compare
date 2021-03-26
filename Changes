@@ -1,3 +1,8 @@
+0.14 2021-03-29
+  - raise required Mojolicious version to 8.43
+  - add NAME section to spreadcomp
+  - added documentation for report_all_rows
+
 0.13 2021-03-26
   - fix warning in DB reader
   - add --version to spreadcomp
