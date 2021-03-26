@@ -32,3 +32,5 @@ nytprof/*
 *.tar.gz
 *.tgz
 /example/
+/Spreadsheet-Compare-*
+
