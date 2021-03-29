@@ -1,3 +1,6 @@
+0.15 2021-03-29
+  - fix NAME section for spreadcomp
+
 0.14 2021-03-29
   - raise required Mojolicious version to 8.43
   - add NAME section to spreadcomp
