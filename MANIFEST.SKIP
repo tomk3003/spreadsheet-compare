@@ -12,6 +12,9 @@
 ^cover_db
 ^_Deparsed_XSubs\.pm
 ^scratch
-^example
+^example/suite/reports
+^example/.+\.html$
+^example/.+\.xlsx$
 ^Makefile\.old$
 ^MANIFEST\.SKIP$
+^tutorial

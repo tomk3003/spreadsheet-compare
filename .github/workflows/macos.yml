@@ -18,4 +18,6 @@ jobs:
       - name: Install Dependencies
         run: curl -L https://cpanmin.us | perl - -n --no-interactive --installdeps --skip-satisfied .
       - name: Run Tests
+        env:
+          SPREADSHEET_COMPARE_DEBUG: INFO
         run: prove -Ilib -m -v --jobs 4

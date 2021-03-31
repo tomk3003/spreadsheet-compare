@@ -20,11 +20,24 @@ jobs:
       - name:  set path
         shell: bash
         run:   echo 'C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin' >> $GITHUB_PATH
-      - name: Install Dependencies
+      - name: install minimal dependencies
         run:  cpanm -f -n --no-interactive --installdeps --skip-satisfied .
-      - name: Run Tests
+      - name: run minimal tests
+        env:
+          SPREADSHEET_COMPARE_DEBUG: INFO
         run:  prove -Ilib -m -v --jobs 4
-      - name: Install Mojo::IOLoop::Thread
+      - name: install Mojo::IOLoop::Thread
         run:  cpanm -f -n --no-interactive Mojo::IOLoop::Thread
-      - name: Run Multithreaded Test
-        run:  prove -Ilib -m -v t/12_complex_csv.t
+      - name: run multithreaded test
+        env:
+          SPREADSHEET_COMPARE_DEBUG: INFO
+        run:  prove -Ilib -m -v
+      - name: install all dependencies
+        env:
+          SPREADSHEET_COMPARE_TEST_ALL: 1
+        run:  cpanm -f -n --no-interactive Mojo::IOLoop::Thread
+      - name: run all tests
+        env:
+          SPREADSHEET_COMPARE_TEST_ALL: 1
+          SPREADSHEET_COMPARE_DEBUG: INFO
+        run:  prove -Ilib -m -v

@@ -31,6 +31,7 @@ nytprof/*
 *.tar
 *.tar.gz
 *.tgz
-/example/
 /Spreadsheet-Compare-*
-
+/tutorial/
+/example/suite/reports
+/example/*.html
