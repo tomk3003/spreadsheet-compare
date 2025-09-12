@@ -429,8 +429,8 @@ sub _compare_record ( $self, $l, $r ) {    ## no critic (ProhibitExcessComplexit
         my $rorig = my $rval = $rrec->[$idx] // '';
 
         if ( $self->{convert_numbers} ) {
-            $self->_convert_number($lval);
-            $self->_convert_number($rval);
+            $self->_convert_number( \$lval );
+            $self->_convert_number( \$rval );
             $debug and DEBUG "$key: converted values >>$lval<< >>$rval<<";
             $lrec->[$idx] = $lval;
             $rrec->[$idx] = $rval;
@@ -458,8 +458,8 @@ sub _compare_record ( $self, $l, $r ) {    ## no critic (ProhibitExcessComplexit
 
         no warnings qw/numeric/;    ## no critic (ProhibitNoWarnings)
 
-        $self->_convert_number( $lval, 1 );
-        $self->_convert_number( $rval, 1 );
+        $self->_convert_number( \$lval, 1 );
+        $self->_convert_number( \$rval, 1 );
 
         if ( $lval == $rval ) {
             $debug and DEBUG "$key: $lval == $rval in numerical comparison";
@@ -604,17 +604,17 @@ sub _set_limits ( $self, $head ) {
 # true conversion will only be performed if $string matches
 # the internal representation for numerical strings (depending
 # on the setings for decimal_separator and digital_grouping_symbol)
-sub _convert_number ( $self, $string, $force = '' ) {    ## no critic (RequireArgUnpacking)
+sub _convert_number ( $self, $string_ref, $force = '' ) {
     my $rir = $self->{_numerical_regex};
     my $dgs = $self->{_dgs};
     my $ds  = $self->{_ds};
 
-    return $self unless $force or $string =~ /^$rir$/;
+    return $self unless $force or $$string_ref =~ /^$rir$/;
 
-    no warnings qw/numeric/;                             ## no critic (ProhibitNoWarnings)
-    $_[1] =~ s/$dgs//g if $dgs;
-    $_[1] =~ s/$ds/\./ if $ds and $ds ne '\.';
-    $_[1] += 0;
+    $$string_ref =~ s/$dgs//g if $dgs;
+    $$string_ref =~ s/$ds/\./ if $ds and $ds ne '\.';
+    $$string_ref ||= 0;
+    $$string_ref += 0;
 
     return $self;
 }

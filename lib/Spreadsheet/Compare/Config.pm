@@ -27,7 +27,7 @@ sub import ( $class, $cfg = {}, %args ) {
         my $rt   = ref($value);
         my $wrap = ( not $rt or $rt eq 'CODE' ) ? $value : sub { $value };
         $sources{$caller}{$key} = $defaults{$key} = $wrap;
-        $protected{$key} = 1 if $args{protected};
+        $protected{$key}        = 1 if $args{protected};
         Mojo::Base::attr( $caller, $key, $wrap ) if $args{make_attributes};
     }
     monkey_patch( $caller, 'config_defaults', sub { $sources{$caller} } );
@@ -88,7 +88,7 @@ sub _make_plan ( $self, $cfg_main ) {
 
     my $globals = $self->_extract_globals($cfg_main);
     $globals->{title} = _get_title_from_filename( $self->from );
-    $self->_expand_test($globals, $globals->{rootdir});
+    $self->_expand_test( $globals, \$globals->{rootdir} );
 
     my $plan = [];
     my %suite_globals;
@@ -111,7 +111,7 @@ sub _make_plan ( $self, $cfg_main ) {
                 my $snbr = 1;
                 for my $sub_entry (@$sub_cfg) {
                     $sub_entry->{$_} //= $cfg->{$_} for keys %$cfg;
-                    $sub_entry->{_filename} = $fn;
+                    $sub_entry->{_filename}   = $fn;
                     $sub_entry->{suite_title} = $suite_title;
                     $sub_entry->{title} //= $suite_title . '_' . $snbr++;
                     push @$plan, $sub_entry;
@@ -126,7 +126,7 @@ sub _make_plan ( $self, $cfg_main ) {
     }
 
     $self->_expand_plan( $plan, $globals, \%suite_globals );
-    INFO Dump(\%suite_globals);
+    INFO Dump( \%suite_globals );
 
     $self->plan($plan);
     $self->{__ro__globals} = $globals;
@@ -157,7 +157,7 @@ sub _expand_plan ( $self, $plan, $globals, $sglobals ) {
         $test->{$_} //= $globals->{$_} for keys %$globals;
         $self->_expand_test($test);
     }
-    $self->_expand_test($globals, $globals->{summary_filename} //= '');
+    $self->_expand_test( $globals, \( $globals->{summary_filename} //= '' ) );
     return $self;
 }
 
@@ -168,21 +168,21 @@ sub _expand_test ( $self, $test, $element = undef ) {
     $element //= $test;
     my $reftype = ref($element);
     if ( $reftype eq 'ARRAY' ) {
-        $self->_expand_test( $test, $_ ) for grep { defined } @$element;
+        $self->_expand_test( $test, ref($_) ? $_ : \$_ ) for grep { defined } @$element;
     }
     elsif ( $reftype eq 'HASH' ) {
-        $self->_expand_test( $test, $_ ) for grep { defined } values %$element;
+        $self->_expand_test( $test, ref($_) ? $_ : \$_ ) for grep { defined } values %$element;
     }
-    elsif ( not $reftype ) {
-        $_[2] //= '';
+    elsif ( $reftype eq 'SCALAR' ) {
+        $$element //= '';
         my $loop_count = 0;
-        while ( my( $sigil, $varname ) = $_[2] =~ /([\$\%])\{([^\}]+)\}/ ) {
+        while ( my( $sigil, $varname ) = $$element =~ /([\$\%])\{([^\}]+)\}/ ) {
             my $src = $sigil eq '$' ? \%ENV : $test;
             die "could not expand ${sigil}{$varname} in >>$test->{title}<<\n"
                 unless exists $src->{$varname};
             my $rx = quotemeta("$sigil\{$varname\}");
-            $_[2] =~ s/$rx/$src->{$varname}/g;
-            LOGDIE "continuous loop while expanding variable $sigil\{$varname\} in '$element'"
+            $$element =~ s/$rx/$src->{$varname}/g;
+            LOGDIE "continuous loop while expanding variable $sigil\{$varname\} in '$$element'"
                 if ++$loop_count > $max_loop;
         }
     }
