@@ -53,6 +53,16 @@ for my $mod ( keys %optional ) {
     }
 }
 
+my %test_allways = ( 'Test::Exception' => 0.43 );
+my %test_if_all  = $ENV{SPREADSHEET_COMPARE_TEST_ALL}
+    ? qw(
+    DBD::SQLite                1.52
+    Spreadsheet::Read          0.83
+    Spreadsheet::ParseXLSX     0.24
+    Spreadsheet::ParseODS      0.26
+    )
+    : ();
+my %test_win_all = $ENV{SPREADSHEET_COMPARE_TEST_ALL} && ( $^O eq 'MSWin32' ) ? ( 'Mojo::IOLoop::Thread' => 0.10 ) : ();
 
 WriteMakefile(
     NAME         => 'Spreadsheet::Compare',
@@ -62,14 +72,12 @@ WriteMakefile(
     LICENSE      => 'artistic_2',
     META_MERGE   => {
         dynamic_config => 0,
-        'meta-spec'    => { version => 2 },
+        'meta-spec'    => { version   => 2 },
         no_index       => { directory => ['t'] },
-        prereqs        => { runtime => { requires => { perl => '5.024' } } },
+        prereqs        => { runtime   => { requires => { perl => '5.024' } } },
         resources      => {
-            license    => 'http://www.opensource.org/licenses/artistic-license-2.0',
-            bugtracker => {
-                web => 'https://github.com/tomk3003/spreadsheet-compare/issues'
-            },
+            license    => 'https://opensource.org/license/artistic-2-0',
+            bugtracker => { web => 'https://github.com/tomk3003/spreadsheet-compare/issues' },
             repository => {
                 type => 'git',
                 url  => 'https://github.com/tomk3003/spreadsheet-compare.git',
@@ -90,17 +98,7 @@ WriteMakefile(
         Pod::Usage                 0
         Capture::Tiny              0
     ) },
-    TEST_REQUIRES => {
-        'Test::Exception' => 0.43,
-        $ENV{SPREADSHEET_COMPARE_TEST_ALL}
-        ? qw(
-            DBD::SQLite                1.52
-            Spreadsheet::Read          0.83
-            Spreadsheet::ParseXLSX     0.24
-            Spreadsheet::ParseODS      0.26
-            )
-        : (),
-    },
-    EXE_FILES => ['script/spreadcomp'],
-    test      => { TESTS => 't/*.t' }
+    TEST_REQUIRES => { %test_allways, %test_if_all, %test_win_all },
+    EXE_FILES     => ['script/spreadcomp'],
+    test          => { TESTS => 't/*.t' }
 );
